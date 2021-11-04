@@ -11,14 +11,16 @@ namespace BankTeller
     public class Investment
     {
         public int Total { get; set; }
-        public double CompoundInterest { get; set; }
-        public int MonthlyCompound { get; set; }
-        double[] SavingDuration = {6, 9, 12, 24, 60 };
+
+        public double MonthlyCompound { get; set; }
+        double[] SavingDuration = { 6, 9, 12, 24, 60 };
         public double Savings { get; set; }
         public double Current { get; set; }
         public double Cooperate { get; set; }
+
         public double DurationToYear { get; set; }
         public double Amount { get; set; }
+
 
         public Investment()
         {
@@ -26,7 +28,9 @@ namespace BankTeller
             Current = 40;
             Cooperate = 60;
             MonthlyCompound = 12;
-        }    
+
+
+        }
 
         public double RateConversion(string AccountType)
         {
@@ -51,6 +55,7 @@ namespace BankTeller
             }
         }
 
+
         public void CompoundInterestCalculation()
         {
             Investment NewInvestment = new Investment();
@@ -59,20 +64,29 @@ namespace BankTeller
             Total = int.Parse(Console.ReadLine());
             foreach (var duration in SavingDuration)
             {
+                double vat = 0.75;
+                double amountAfterTax;
+
                 DurationToYear = duration / 12;
-                Amount = Total * Math.Pow((1 + NewInvestment.RateConversion(InterestedCustomer.AccountType) / MonthlyCompound),MonthlyCompound * DurationToYear);
-
-                Console.WriteLine("*************************");
-
-                Console.WriteLine($"In {duration} months, your investment will amount to  ${Amount}");
+                Amount = Total * Math.Pow((1 + NewInvestment.RateConversion(InterestedCustomer.AccountType) / MonthlyCompound), MonthlyCompound * DurationToYear);
+                amountAfterTax = Total + (Amount - Total) * vat;
+                Console.WriteLine("**************");
+                Console.WriteLine($"In {duration} months, your investment will amount to  #{Math.Round(amountAfterTax, 3)}");
             }
 
         }
 
+        //double IValueAddedTax.VatRate(double VatRate, double Total, double Amount)
+        //{
+        //    AmountAfterTax = Total + (Amount - Total) * VatRate;
+        //    return AmountAfterTax;
+
+        //}
+
         //int IValueAddedTax.VatRate(decimal vatRate)
         //{
-          // decimal vatRate = 0.075;
-           
+        // decimal vatRate = 0.075;
+
         //}
     }
 }
